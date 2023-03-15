@@ -1,0 +1,25 @@
+2023-03-13 14:29:07,717 - app - INFO - updateDataset:44 - Updating datasets... (This may took a while)
+2023-03-13 14:32:15,022 - app - INFO - updateDataset:65 - Datasets updated!
+2023-03-13 14:32:15,024 - app - INFO - encodeFaces:29 - Encoding Faces... (This may take a while)
+2023-03-13 14:57:13,683 - app - INFO - encodeFaces:41 - Encoding Done!
+2023-03-13 14:58:38,739 - app - INFO - process:39 - Saving image to D:\Programming\Workbooks\01. Kazee\pol-recog/data/output/20230313/1/data/input.jpg
+2023-03-13 15:03:22,198 - app - INFO - updateDataset:44 - Updating datasets... (This may took a while)
+2023-03-13 15:06:30,544 - app - INFO - updateDataset:65 - Datasets updated!
+2023-03-13 15:06:30,547 - app - INFO - encodeFaces:29 - Encoding Faces... (This may take a while)
+2023-03-13 15:31:33,465 - app - INFO - encodeFaces:41 - Encoding Done!
+2023-03-13 15:37:07,176 - app - INFO - process:42 - Saving image to D:\Programming\Workbooks\01. Kazee\pol-recog/data/output/20230313/2/data/input.jpg
+2023-03-13 15:37:07,202 - app - INFO - getFaceCoordinates:115 - Grabbing faces detected from input image
+2023-03-13 15:38:54,653 - app - INFO - updateDataset:44 - Updating datasets... (This may took a while)
+2023-03-13 15:41:55,497 - app - INFO - updateDataset:65 - Datasets updated!
+2023-03-13 15:41:55,499 - app - INFO - encodeFaces:29 - Encoding Faces... (This may take a while)
+2023-03-13 16:06:59,523 - app - INFO - encodeFaces:41 - Encoding Done!
+2023-03-13 16:15:58,942 - app - INFO - process:42 - Saving image to D:\Programming\Workbooks\01. Kazee\pol-recog/data/output/20230313/3/data/input.jpg
+2023-03-13 16:15:59,042 - app - INFO - getFaceCoordinates:115 - Grabbing faces detected from input image
+2023-03-13 16:15:59,248 - app - INFO - getFaceCoordinates:158 - Face grab success. Got total faces of 1
+2023-03-13 16:15:59,262 - app - INFO - recog:85 - Recognizing faces into user IDs
+2023-03-13 16:16:01,056 - app - INFO - process:77 - API return success. Request fulfilled.
+2023-03-13 16:16:31,195 - app - INFO - process:42 - Saving image to D:\Programming\Workbooks\01. Kazee\pol-recog/data/output/20230313/4/data/input.jpg
+2023-03-13 16:16:31,238 - app - INFO - getFaceCoordinates:115 - Grabbing faces detected from input image
+2023-03-13 16:16:31,409 - app - INFO - getFaceCoordinates:158 - Face grab success. Got total faces of 1
+2023-03-13 16:16:31,413 - app - INFO - recog:85 - Recognizing faces into user IDs
+2023-03-13 16:16:33,151 - app - INFO - process:77 - API return success. Request fulfilled.
