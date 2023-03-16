@@ -36,6 +36,17 @@ class Models:
         self.known_face_names = []
 
     def encodeFaces(self):
+        today = datetime.datetime.now()
+        if os.path.exists(f"{CWD}/ml-models/training-models/{today.strftime('%Y%m%d')}-trained.h5"):
+            logger.info("ENCODING AND UPDATE SKIPPED. MODEL EXISTS.")
+            return None
+        else:
+            try:
+                today = today - datetime.timedelta(days=1)
+                os.remove(f"{CWD}/ml-models/training-models/{today.strftime('%Y%m%d')}-trained.h5")
+            except FileNotFoundError:
+                logger.info("First time training, creating new initial train file.")
+
         # Update dataset before encoding
         self.updateDataset()
 
@@ -136,15 +147,14 @@ class Models:
         class_list = [value for _, value in class_dictionary.items()]
 
         # Detecting faces
-        facecascade = cv2.CascadeClassifier(f'{CWD}/ml-models/haarcascade/haarcascade_frontalface_default.xml')
+        face = face_analysis()
 
         # Load the image
         imgtest = cv2.imread(filename, cv2.IMREAD_COLOR)
         image_array = numpy.array(imgtest, "uint8")
 
         # Get the faces detected in the image
-        faces = facecascade.detectMultiScale(imgtest, 
-            scaleFactor=1.1, minNeighbors=5)
+        _,box,conf=face.face_detection(frame_arr=imgtest,frame_status=True,model='tiny')
 
         # Load model
         today = datetime.datetime.now().strftime("%Y%m%d")
@@ -159,19 +169,19 @@ class Models:
         frames = []
 
         count = 1
-        for (face_x, face_y, face_w, face_h) in faces:
+        for (face_x, face_y, face_w, face_h) in box:
             # Resize the detected face to 224 x 224
             size = (imageWidth, imageHeight)
-            roi = image_array[face_y: face_y + face_h, face_x: face_x + face_w]
+            roi = image_array[face_y: face_y + face_w, face_x: face_x + face_h]
             resized_image = cv2.resize(roi, size)
 
             frame = f"{CWD}/data/output/{today}/{requestFolderCount}/frame"
             if not os.path.exists(frame):
                 os.mkdir(frame)
                 
-            frame += f"/frame{count.zfill(3)}.jpg"
+            frame += f"/frame{str(count).zfill(3)}.jpg"
             
-            cv2.imwrite(frame)
+            cv2.imwrite(frame, resized_image)
 
             frames.append(frame.split("output/")[1])
 
@@ -215,10 +225,12 @@ class Models:
 
         logger.info("Datasets updated!")
 
-    def imgAugmentation(img):
+    def imgAugmentation(self, img):
         try:
             face = face_analysis()
-            frame = cv2.imread(img)
+            frame = Image.open(img)
+            frame = frame.convert("RGB")
+            frame = numpy.array(frame)
             _,boxes,conv = face.face_detection(frame_arr=frame,frame_status=True,model='tiny')
             if len(boxes) > 1:
                 print("More than 1 face detected. Only choosing the first face that got detected")
@@ -226,7 +238,7 @@ class Models:
                 box = boxes[0]
                 x,y,w,h = box[0],box[1],box[2],box[3]
                 cropped_face = frame[y:y + w, x:x + h]
-                cv2.imwrite(img, cropped_face)
+                cv2.imwrite(img, cv2.cvtColor(cropped_face, cv2.COLOR_BGR2RGB))
         except Exception as e:
             logger.error(f"ERROR - {str(e)}. Filename: {img}")
 

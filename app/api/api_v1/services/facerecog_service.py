@@ -50,7 +50,7 @@ class RecogService:
         
         result = {}
         for i, frameName in enumerate(frameNames):
-            result.update({frameName: facesDetected[i]})
+            result.update({frameName.split("/frame/")[1].split(".")[0]: facesDetected[i]})
 
         JSONFilename = f"{CWD}/data/output/{timeNow}/{count}/data/face.json"
 
@@ -58,7 +58,7 @@ class RecogService:
             f.write(str(result))
 
         logger.info("API return success. Request fulfilled.")
-        return {"path_frame": facesDetected, "path_result": JSONFilename.split("output/")[1], "result": result, "status": 1}
+        return {"path_frame": frameNames, "path_result": JSONFilename.split("output/")[1], "result": result, "status": 1}
 
     def getTimeNow(self):
         # before: %d-%b-%y.%H-%M-%S
